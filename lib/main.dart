@@ -1,125 +1,177 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'file_upload_screen.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  await Supabase.initialize(
+      url: 'https://qsgwdstyewokukbieuix.supabase.co',
+      anonKey:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzZ3dkc3R5ZXdva3VrYmlldWl4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM1MDAzNzgsImV4cCI6MjA2OTA3NjM3OH0.TKv8ywB5yWlVWIJcXbLgBXONcoQGfZ-c4YAwS61D_c0");
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(
+      // EasyLocalization(
+      //     supportedLocales: [Locale('en'), Locale('ar')],
+      //     path:
+      //         'assets/translations', // <-- change the path of the translation files
+      //     assetLoader: CodegenLoader(),
+      //     fallbackLocale: Locale('en', 'US'),
+      //     saveLocale: true,
+
+      //     child:
+      MyApp()
+      // ),
+      );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // localizationsDelegates: context.localizationDelegates,
+      // supportedLocales: context.supportedLocales,
+      // locale: context.locale,
+      home: FileUploadScreen(),
+      debugShowCheckedModeBanner: false,
+
+      // BlocProvider(
+      //   create: (_) => ProductCubit(ProductService())..fetchInitialProducts(),
+      //   child: const ProductListScreen(),
+      // ),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
-  final String title;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       routes: {},
+//       onGenerateRoute: (settings) => AppRoute().generateRoute(settings),
+//       home: Scaffold(
+//           appBar: AppBar(
+//             title: const Text('Swipe Up'),
+//           ),
+//           body: Column(
+//             children: [
+              
+//               Center(
+//                 child: InkWell(
+//                   onTap: () {
+//                     Navigator.pushNamed(context, RouteKey.onbourding);
+//                   },
+//                   child: const Text(
+//                     'Go to Onboarding Screen',
+//                     style: TextStyle(fontSize: 20),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           )),
+//     );
+//   }
+// }
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
+
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return const MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: UploadImageToSupabase(),
+//     );
+//   }
+// }
+
+// class UploadImageToSupabase extends StatefulWidget {
+//   const UploadImageToSupabase({super.key});
+
+//   @override
+//   State<UploadImageToSupabase> createState() => _UploadImageToSupabaseState();
+// }
+
+// class _UploadImageToSupabaseState extends State<UploadImageToSupabase> {
+//   final picker = ImagePicker();
+//   String? imageUrl;
+//   bool isLoading = false;
+
+//   Future<void> pickAndUploadImage() async {
+//     final picked = await picker.pickImage(source: ImageSource.gallery);
+//     if (picked == null) return;
+
+//     setState(() => isLoading = true);
+
+//     final file = File(picked.path);
+//     final fileBytes = await file.readAsBytes();
+//     final fileExt = p.extension(picked.path);
+//     final fileName = 'uploads/${DateTime.now().millisecondsSinceEpoch}$fileExt';
+
+//     final supabase = Supabase.instance.client;
+//     final storage = supabase.storage.from('avatars');
+
+//     try {
+//       await storage.uploadBinary(
+//         fileName,
+//         fileBytes,
+//         fileOptions: const FileOptions(upsert: true, contentType: 'image/png'),
+//       );
+
+//       final publicUrl = storage.getPublicUrl(fileName);
+//       setState(() => imageUrl = publicUrl);
+//     } catch (e) {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(content: Text('Upload failed: $e')),
+//       );
+//     } finally {
+//       setState(() => isLoading = false);
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text('Upload to Supabase')),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             if (isLoading) const CircularProgressIndicator(),
+//             if (imageUrl != null)
+//               Padding(
+//                 padding: const EdgeInsets.all(12.0),
+//                 child: Image.network(imageUrl!, height: 200),
+//               )
+//             else if (!isLoading)
+//               const Icon(Icons.image, size: 100),
+//             const SizedBox(height: 16),
+//             ElevatedButton(
+//               onPressed: isLoading ? null : pickAndUploadImage,
+//               child: const Text('Pick & Upload Image'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+

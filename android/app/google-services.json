@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "24560802014",
+    "project_id": "swipeup-919de",
+    "storage_bucket": "swipeup-919de.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24560802014:android:82904f5901889c4b76ca4f",
+        "android_client_info": {
+          "package_name": "com.example.swipe_up"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqFVtdayUKTAVu7PSdmrQqK0TQK8lHBx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
